@@ -8,17 +8,29 @@
 2. [OPEN API 상품 목록](https://plus.kipris.or.kr/portal/data/apiClas/List.do)에서 **특허·실용 공개·등록공보**, **디자인 공보**, **상표 출원 속보**의 필요한 검색 기능을 각각 활용신청한다. 벌크 데이터 구매가 아니라 OPEN API 신청을 선택한다. 이 MCP는 `freeSearchInfo`, `getAdvancedSearch`, `trademarkInfoSearchService/getWordSearch`, `designInfoSearchService/getWordSearch` 등을 사용한다. 특허 상세 기능 `getBibliographyDetailInfoSearch`도 제공되면 신청한다. 신청하지 않은 기능은 `resultCode 30` 오류가 날 수 있다. [MCP 원본 안내](https://github.com/chrisryugj/korean-patent-mcp#인증키)
 3. `마이페이지 → APIKEY관리`에서 키를 확인한다. 무료 API는 별도 관리자 승인 없이 신청 후 사용할 수 있으며, 무료 호출은 계정 전체 합산 월 1,000회다. 초과하면 차단되며 자동 결제되지 않는다. [가입·신청 안내](https://plus.kipris.or.kr/portal/main/contents.do?menuNo=210104), [무료 API FAQ](https://plus.kipris.or.kr/portal/bbs/Faq_info.do?buttonIndex=&pageIndex=3)
 
-**키를 채팅, 저장소, `.env`, 원격 MCP의 요청별 헤더에 넣지 않는다.** KIPRIS Plus는 계정 고유 키 공유를 금지한다. [공식 FAQ](https://plus.kipris.or.kr/portal/bbs/Faq_info.do?buttonIndex=&pageIndex=9) 아래 스크립트로 사용자 전용 파일에 입력하고 로컬 STDIO 서버만 실행한다.
+**키를 채팅, 저장소, `.env`, 원격 MCP의 요청별 헤더에 넣지 않는다.** KIPRIS Plus는 계정 고유 키 공유를 금지한다. [공식 FAQ](https://plus.kipris.or.kr/portal/bbs/Faq_info.do?buttonIndex=&pageIndex=9) Node.js 20.19 이상을 설치하고, 아래 스크립트를 **본인 터미널에서 직접** 실행해 키를 입력한다. 입력 문자는 표시되지 않는다.
+
+macOS·Linux:
 
 ```bash
-bash "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/save-api-key.sh"
+node "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/save-api-key.mjs"
 ```
 
-입력 문자는 터미널에 표시되지 않는다. 파일은 `~/.config/coupang-ip-check/kipris-api-key`에 저장되고, 폴더는 본인만 접근하도록 설정된다. 키를 바꾸려면 같은 스크립트를 다시 실행한다.
+Windows PowerShell:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
+$skillDir = Join-Path $codexHome 'skills\coupang-ip-check'
+node (Join-Path $skillDir 'scripts\save-api-key.mjs')
+```
+
+파일은 macOS·Linux에서는 `~/.config/coupang-ip-check/kipris-api-key`, Windows에서는 `%APPDATA%\coupang-ip-check\kipris-api-key`에 저장된다. 키를 바꾸려면 같은 스크립트를 다시 실행한다. 기존 Bash 스크립트는 macOS·Linux 사용자와의 호환을 위해 남겨둔다.
 
 ## MCP 연결
 
-Node.js 20.19 이상을 설치하고, MCP를 로컬에 빌드한다. `build/index.js`가 있어야 한다. 기본 설치 위치는 `${XDG_DATA_HOME:-$HOME/.local/share}/coupang-ip-check/korean-patent-mcp`이며, 다른 위치라면 `COUPANG_IP_MCP_DIR` 환경변수로 지정할 수 있다.
+MCP를 로컬에 빌드한다. `build/index.js`가 있어야 한다. 다른 위치에 설치했다면 `COUPANG_IP_MCP_DIR` 환경변수로 지정할 수 있다.
+
+macOS·Linux:
 
 ```bash
 mcp_dir="${XDG_DATA_HOME:-$HOME/.local/share}/coupang-ip-check/korean-patent-mcp"
@@ -28,10 +40,30 @@ npm --prefix "$mcp_dir" ci
 npm --prefix "$mcp_dir" run build
 ```
 
+Windows PowerShell:
+
+```powershell
+$mcpDir = Join-Path $env:LOCALAPPDATA 'coupang-ip-check\korean-patent-mcp'
+New-Item -ItemType Directory -Force (Split-Path $mcpDir) | Out-Null
+git clone https://github.com/chrisryugj/korean-patent-mcp.git $mcpDir
+npm.cmd --prefix $mcpDir ci
+npm.cmd --prefix $mcpDir run build
+```
+
 Codex의 MCP 설정에는 키가 아닌 시작 스크립트 경로만 기록한다.
 
+macOS·Linux:
+
 ```bash
-codex mcp add korean-patent -- bash "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/launch-mcp.sh"
+codex mcp add korean-patent -- node "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/launch-mcp.mjs"
+```
+
+Windows PowerShell:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
+$skillDir = Join-Path $codexHome 'skills\coupang-ip-check'
+codex mcp add korean-patent -- node (Join-Path $skillDir 'scripts\launch-mcp.mjs')
 ```
 
 연결 후 Codex를 새로 시작하거나 MCP 목록을 새로고침한다. `tools/list`에서 7개 도구가 보이는 것은 연결 확인이며 실제 검색의 성공을 뜻하지 않는다. 실제 검색은 사용자가 키를 저장하고 세 서비스를 신청한 뒤 각각 1건씩 호출해 확인한다. `resultCode 30`이 나오면 KIPRIS Plus에서 해당 기능 신청 여부를 확인한다. 공개 원격 서버의 공용 일일 한도는 실사용에 부족하며 개인 키를 원격 서버에 전달하지 않는다.
