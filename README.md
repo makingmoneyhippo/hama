@@ -6,12 +6,37 @@
 
 이 도구는 **사입 전 예비 선별**을 돕습니다. 이미지 한 장이나 검색 결과 0건으로 비침해를 확정하지 않습니다. 디자인 도면, 특허 청구항, 상표 지정상품과 권리 상태는 공식 기록으로 확인해야 합니다.
 
-## 설치
+## 구독자용 한 줄 프롬프트
+
+아래 한 줄을 **로컬 파일과 터미널을 사용할 수 있는 Codex 데스크톱/CLI**에 붙여 넣으면 처음 설치와 이후 업데이트에 모두 사용할 수 있습니다.
+
+```text
+https://github.com/makingmoneyhippo/hama 의 README 절차에 따라 coupang-ip-check 스킬을 내 PC에 처음이면 설치하고 이미 있으면 로컬 수정과 API 키를 보존하며 최신판으로 업데이트해 줘. 내 운영체제에 맞게 korean-patent-mcp 설치·연결까지 진행하고, KIPRIS Plus 가입·API 신청·키 입력처럼 내가 직접 해야 할 단계만 안내해 줘. 키는 채팅에 받지 말고 내 PC에서만 입력하게 해 줘.
+```
+
+이 프롬프트는 Codex가 설치 상태를 확인하도록 요청합니다. KIPRIS Plus 계정 개설·API 활용신청·키 입력은 사용자가 직접 해야 하므로 무인 설치를 뜻하지 않습니다. 일반 ChatGPT 웹·모바일 대화에는 로컬 스킬을 자동 설치할 수 있는 환경이 없을 수 있습니다.
+
+## 직접 설치·업데이트
+
+처음 설치는 스킬 폴더에 Git 저장소를 복제합니다. 같은 경로에 다른 파일이 있으면 먼저 출처와 수정 내용을 확인하세요.
+
+macOS·Linux:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
 git clone https://github.com/makingmoneyhippo/hama.git "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check"
 ```
+
+Windows PowerShell:
+
+```powershell
+$codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
+$skillsDir = Join-Path $codexHome 'skills'
+New-Item -ItemType Directory -Force $skillsDir | Out-Null
+git clone https://github.com/makingmoneyhippo/hama.git (Join-Path $skillsDir 'coupang-ip-check')
+```
+
+업데이트할 때는 설치 폴더가 이 저장소의 Git 복제본이고 작업 파일에 수정이 없는지 확인한 뒤 `git pull --ff-only origin main`을 실행합니다. 다른 방식으로 설치했거나 파일을 수정했다면 백업·차이 확인 없이 덮어쓰지 않습니다. API 키는 스킬 폴더 밖의 사용자 전용 위치에 저장됩니다.
 
 검색에는 [korean-patent-mcp](https://github.com/chrisryugj/korean-patent-mcp)와 개인 KIPRIS Plus API 키가 필요합니다. [MCP와 키 설정](references/mcp-setup.md)에 설치·연결 순서가 있습니다. 키는 이 저장소에 넣지 않습니다.
 
