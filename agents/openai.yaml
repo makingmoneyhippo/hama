@@ -1,0 +1,4 @@
+interface:
+  display_name: "쿠팡권리사전점검"
+  short_description: "상품 사진·판매자명·상표명으로 국내 지식재산권 사입 위험을 점검"
+  default_prompt: "$coupang-ip-check로 이 상품의 디자인·상표·특허 권리 위험을 사입 전에 조사해 줘."
