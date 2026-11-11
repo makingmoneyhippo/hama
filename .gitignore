@@ -1,0 +1,5 @@
+.DS_Store
+.env
+.env.*
+kipris-api-key
+node_modules/
