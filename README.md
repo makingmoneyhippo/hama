@@ -7,14 +7,30 @@
 | `coupang-ip-check` | 사입 전 국내 디자인권·특허·상표권 예비 점검 | 저장소 루트 `SKILL.md` |
 | `coupang-detail-studio` | 상품 링크나 사진으로 20장 상세페이지 기획·제작·수정 | [스킬 폴더](skills/coupang-detail-studio) |
 
-기존 `coupang-ip-check` 설치 경로와 스킬 파일은 그대로 유지됩니다. 아래 기존 설치 안내는 권리 사전점검 스킬에 해당합니다.
+두 기능은 서로 다른 스킬입니다. 한 기능을 요청할 때 해당 스킬 이름을 말하거나 `$`로 호출하면 됩니다. 아래의 **직접 설치·업데이트** 안내는 기존 권리 사전점검 스킬을 Git으로 관리하는 대안입니다.
+
+## 두 스킬 빠른 설치
+
+Codex 데스크톱/CLI에서 두 스킬을 모두 설치하려면 아래 명령을 사용합니다. 저장소 루트에 한 스킬이 있으므로 하위의 상세페이지 스킬까지 찾도록 `--full-depth`를 넣습니다. `-g`는 다른 프로젝트에서도 사용할 수 있도록 사용자 범위에 설치합니다.
+
+```bash
+npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill coupang-detail-studio --skill coupang-ip-check -g -a codex
+```
+
+터미널 사용이 어렵다면 Codex에 이렇게 요청하세요.
+
+```text
+https://github.com/makingmoneyhippo/hama 의 README를 읽고 coupang-detail-studio와 coupang-ip-check 두 스킬을 내 Codex에 설치해 줘. 기존에 같은 이름의 스킬이 있으면 덮어쓰기 전에 차이를 확인해 줘. 권리 검색에 필요한 계정·API 키 설정은 내가 직접 해야 하는 단계만 안내해 줘.
+```
+
+설치 후 기능별 요청 예시는 아래에 있습니다. `coupang-ip-check`의 KIPRIS Plus API 키와 `korean-patent-mcp` 연결은 스킬 설치와 별개이며, 필요한 경우 [설정 안내](references/mcp-setup.md)를 따릅니다.
 
 ## 상세페이지 스킬 설치·사용
 
 Codex가 로컬 스킬을 설치할 수 있는 환경이라면 아래 명령으로 상세페이지 스킬만 설치할 수 있습니다.
 
 ```bash
-npx skills add https://github.com/makingmoneyhippo/hama --skill coupang-detail-studio
+npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill coupang-detail-studio -g -a codex
 ```
 
 또는 Codex에 이렇게 요청할 수 있습니다.
@@ -26,6 +42,16 @@ https://github.com/makingmoneyhippo/hama 의 skills/coupang-detail-studio 폴더
 설치 후 `상세페이지 만들어줘`라고 말하고 상품 링크나 사진을 보내면 됩니다. 기본은 20장이며, 시작할 때 움직이는 WebP를 **몇 장** 넣을지 대화로 묻습니다. 브랜드·제품명·소재·색상·사이즈 중 확인되지 않은 필수 정보는 상품 자료를 살핀 뒤 한 번에 질문합니다. 완성본은 연속 HTML 미리보기와 장별 이미지로 전달합니다. 원본 공급자 이미지는 참조용으로만 쓰고 구매자 화면에는 새로 만든 이미지를 사용합니다.
 
 참고할 상세페이지 URL도 함께 주면 스킬에 포함된 [레퍼런스 분석 절차](skills/coupang-detail-studio/references/reference-audit.md)로 페이지의 처음부터 끝까지 구성·소구점 전개·움직이는 매체를 살핀 뒤 해당 상품에 맞게 새로 기획합니다. 별도의 레퍼런스 분석 스킬 설치는 필요하지 않습니다. 예: `이 상품 URL과 사진으로 상세페이지를 만들어줘. 참고 URL의 흐름과 영상 활용 방식을 분석해서 적용해줘.` URL이나 GIF·영상에 접근할 수 없는 경우에는 확인하지 못한 부분을 밝히고 필요한 화면 기록이나 파일을 요청합니다.
+
+```text
+$coupang-detail-studio 이 상품의 쿠팡 상세페이지를 만들어 줘.
+상품 URL: [상품 링크]
+상품 사진: [사진 첨부]
+참고 상세페이지 URL: [레퍼런스 링크]
+참고 페이지의 소구점 전개·화면 흐름·움직이는 이미지 활용을 분석해 내 상품에 맞게 새로 기획해 줘.
+```
+
+상품 URL 또는 사진 중 하나만 있어도 시작할 수 있습니다. 움직이는 WebP 장수와 필수 상품 정보는 스킬이 대화로 확인합니다.
 
 ### 필요한 환경
 
@@ -40,6 +66,13 @@ https://github.com/makingmoneyhippo/hama 의 skills/coupang-detail-studio 폴더
 쿠팡 상품의 사입 전에 한국의 디자인권, 특허·실용신안권, 상표권을 조사하는 스킬입니다. 스킬 이름은 `coupang-ip-check`입니다.
 
 상품 사진·링크·설명·상표명을 단서로 후보를 찾고, 쿠팡에 표시된 판매자명과 공개 상호·대표자명도 KIPRIS의 출원인·권리자 정보와 대조합니다. 확인한 검색 범위, 공식 원문, 남은 불확실성을 함께 보고합니다.
+
+```text
+$coupang-ip-check 이 상품을 사입하기 전에 한국의 디자인권·특허·실용신안권·상표권 위험을 예비 조사해 줘.
+상품 URL: [상품 링크]
+상품 사진: [사진 첨부]
+내가 사용할 브랜드·상표명: [이름]
+```
 
 이 도구는 **사입 전 예비 선별**을 돕습니다. 이미지 한 장이나 검색 결과 0건으로 비침해를 확정하지 않습니다. 디자인 도면, 특허 청구항, 상표 지정상품과 권리 상태는 공식 기록으로 확인해야 합니다.
 
