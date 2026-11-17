@@ -1,0 +1,4 @@
+interface:
+  display_name: "하마스튜디오"
+  short_description: "상품 자료와 레퍼런스로 쿠팡 상세페이지를 기획·제작"
+  default_prompt: "$hama-studio로 이 상품의 쿠팡 상세페이지를 만들어 줘."
