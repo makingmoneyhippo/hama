@@ -13,18 +13,18 @@
 macOS·Linux:
 
 ```bash
-node "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/save-api-key.mjs"
+node "${CODEX_HOME:-$HOME/.codex}/skills/hama-ip/scripts/save-api-key.mjs"
 ```
 
 Windows PowerShell:
 
 ```powershell
 $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
-$skillDir = Join-Path $codexHome 'skills\coupang-ip-check'
+$skillDir = Join-Path $codexHome 'skills\hama-ip'
 node (Join-Path $skillDir 'scripts\save-api-key.mjs')
 ```
 
-파일은 macOS·Linux에서는 `~/.config/coupang-ip-check/kipris-api-key`, Windows에서는 `%APPDATA%\coupang-ip-check\kipris-api-key`에 저장된다. 키를 바꾸려면 같은 스크립트를 다시 실행한다. 기존 Bash 스크립트는 macOS·Linux 사용자와의 호환을 위해 남겨둔다.
+파일은 macOS·Linux에서는 `~/.config/coupang-ip-check/kipris-api-key`, Windows에서는 `%APPDATA%\coupang-ip-check\kipris-api-key`에 저장된다. 이 내부 저장 위치는 이전 스킬의 키를 그대로 사용할 수 있도록 유지한다. 키를 바꾸려면 같은 스크립트를 다시 실행한다. 기존 Bash 스크립트는 macOS·Linux 사용자와의 호환을 위해 남겨둔다.
 
 ## MCP 연결
 
@@ -55,14 +55,14 @@ Codex의 MCP 설정에는 키가 아닌 시작 스크립트 경로만 기록한�
 macOS·Linux:
 
 ```bash
-codex mcp add korean-patent -- node "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check/scripts/launch-mcp.mjs"
+codex mcp add korean-patent -- node "${CODEX_HOME:-$HOME/.codex}/skills/hama-ip/scripts/launch-mcp.mjs"
 ```
 
 Windows PowerShell:
 
 ```powershell
 $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
-$skillDir = Join-Path $codexHome 'skills\coupang-ip-check'
+$skillDir = Join-Path $codexHome 'skills\hama-ip'
 codex mcp add korean-patent -- node (Join-Path $skillDir 'scripts\launch-mcp.mjs')
 ```
 
