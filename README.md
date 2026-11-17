@@ -4,8 +4,8 @@
 
 | 스킬 | 하는 일 | 위치 |
 |---|---|---|
-| `coupang-ip-check` | 사입 전 국내 디자인권·특허·상표권 예비 점검 | 저장소 루트 `SKILL.md` |
-| `coupang-detail-studio` | 상품 링크나 사진으로 20장 상세페이지 기획·제작·수정 | [스킬 폴더](skills/coupang-detail-studio) |
+| 하마IP (`hama-ip`) | 사입 전 국내 디자인권·특허·상표권 예비 점검 | 저장소 루트 `SKILL.md` |
+| 하마스튜디오 (`hama-studio`) | 상품 링크나 사진으로 20장 상세페이지 기획·제작·수정 | [스킬 폴더](skills/hama-studio) |
 
 두 기능은 서로 다른 스킬입니다. 한 기능을 요청할 때 해당 스킬 이름을 말하거나 `$`로 호출하면 됩니다. 아래의 **직접 설치·업데이트** 안내는 기존 권리 사전점검 스킬을 Git으로 관리하는 대안입니다.
 
@@ -14,37 +14,41 @@
 Codex 데스크톱/CLI에서 두 스킬을 모두 설치하려면 아래 명령을 사용합니다. 저장소 루트에 한 스킬이 있으므로 하위의 상세페이지 스킬까지 찾도록 `--full-depth`를 넣습니다. `-g`는 다른 프로젝트에서도 사용할 수 있도록 사용자 범위에 설치합니다.
 
 ```bash
-npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill coupang-detail-studio --skill coupang-ip-check -g -a codex
+npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill hama-studio --skill hama-ip -g -a codex
 ```
 
 터미널 사용이 어렵다면 Codex에 이렇게 요청하세요.
 
 ```text
-https://github.com/makingmoneyhippo/hama 의 README를 읽고 coupang-detail-studio와 coupang-ip-check 두 스킬을 내 Codex에 설치해 줘. 기존에 같은 이름의 스킬이 있으면 덮어쓰기 전에 차이를 확인해 줘. 권리 검색에 필요한 계정·API 키 설정은 내가 직접 해야 하는 단계만 안내해 줘.
+https://github.com/makingmoneyhippo/hama 의 README를 읽고 hama-studio와 hama-ip 두 스킬을 내 Codex에 설치해 줘. 기존에 같은 이름의 스킬이 있으면 덮어쓰기 전에 차이를 확인해 줘. 권리 검색에 필요한 계정·API 키 설정은 내가 직접 해야 하는 단계만 안내해 줘.
 ```
 
-설치 후 기능별 요청 예시는 아래에 있습니다. `coupang-ip-check`의 KIPRIS Plus API 키와 `korean-patent-mcp` 연결은 스킬 설치와 별개이며, 필요한 경우 [설정 안내](references/mcp-setup.md)를 따릅니다.
+설치 후 기능별 요청 예시는 아래에 있습니다. `hama-ip`의 KIPRIS Plus API 키와 `korean-patent-mcp` 연결은 스킬 설치와 별개이며, 필요한 경우 [설정 안내](references/mcp-setup.md)를 따릅니다.
+
+### 이전 이름에서 변경한 경우
+
+`coupang-detail-studio`와 `coupang-ip-check`를 이미 설치했다면 새 이름으로 설치한 뒤 기존 스킬을 정리하세요. `hama-ip`는 이전 KIPRIS 키·MCP 데이터 저장 위치를 그대로 사용하므로 키를 다시 채팅에 보내거나 저장소에 넣지 않아도 됩니다. 기존 MCP 시작 명령이 예전 스킬 폴더를 가리키면 [설정 안내](references/mcp-setup.md)의 `hama-ip` 경로로 바꿔야 합니다.
 
 ## 상세페이지 스킬 설치·사용
 
 Codex가 로컬 스킬을 설치할 수 있는 환경이라면 아래 명령으로 상세페이지 스킬만 설치할 수 있습니다.
 
 ```bash
-npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill coupang-detail-studio -g -a codex
+npx skills add https://github.com/makingmoneyhippo/hama --full-depth --skill hama-studio -g -a codex
 ```
 
 또는 Codex에 이렇게 요청할 수 있습니다.
 
 ```text
-https://github.com/makingmoneyhippo/hama 의 skills/coupang-detail-studio 폴더를 내 Codex 스킬 폴더에 설치해 줘. 기존 로컬 스킬이 있으면 차이를 먼저 확인하고 덮어쓰지 말아 줘.
+https://github.com/makingmoneyhippo/hama 의 skills/hama-studio 폴더를 내 Codex 스킬 폴더에 설치해 줘. 기존 로컬 스킬이 있으면 차이를 먼저 확인하고 덮어쓰지 말아 줘.
 ```
 
 설치 후 `상세페이지 만들어줘`라고 말하고 상품 링크나 사진을 보내면 됩니다. 기본은 20장이며, 시작할 때 움직이는 WebP를 **몇 장** 넣을지 대화로 묻습니다. 브랜드·제품명·소재·색상·사이즈 중 확인되지 않은 필수 정보는 상품 자료를 살핀 뒤 한 번에 질문합니다. 완성본은 연속 HTML 미리보기와 장별 이미지로 전달합니다. 원본 공급자 이미지는 참조용으로만 쓰고 구매자 화면에는 새로 만든 이미지를 사용합니다.
 
-참고할 상세페이지 URL도 함께 주면 스킬에 포함된 [레퍼런스 분석 절차](skills/coupang-detail-studio/references/reference-audit.md)로 페이지의 처음부터 끝까지 구성·소구점 전개·움직이는 매체를 살핀 뒤 해당 상품에 맞게 새로 기획합니다. 별도의 레퍼런스 분석 스킬 설치는 필요하지 않습니다. 예: `이 상품 URL과 사진으로 상세페이지를 만들어줘. 참고 URL의 흐름과 영상 활용 방식을 분석해서 적용해줘.` URL이나 GIF·영상에 접근할 수 없는 경우에는 확인하지 못한 부분을 밝히고 필요한 화면 기록이나 파일을 요청합니다.
+참고할 상세페이지 URL도 함께 주면 스킬에 포함된 [레퍼런스 분석 절차](skills/hama-studio/references/reference-audit.md)로 페이지의 처음부터 끝까지 구성·소구점 전개·움직이는 매체를 살핀 뒤 해당 상품에 맞게 새로 기획합니다. 별도의 레퍼런스 분석 스킬 설치는 필요하지 않습니다. 예: `이 상품 URL과 사진으로 상세페이지를 만들어줘. 참고 URL의 흐름과 영상 활용 방식을 분석해서 적용해줘.` URL이나 GIF·영상에 접근할 수 없는 경우에는 확인하지 못한 부분을 밝히고 필요한 화면 기록이나 파일을 요청합니다.
 
 ```text
-$coupang-detail-studio 이 상품의 쿠팡 상세페이지를 만들어 줘.
+$hama-studio 이 상품의 쿠팡 상세페이지를 만들어 줘.
 상품 URL: [상품 링크]
 상품 사진: [사진 첨부]
 참고 상세페이지 URL: [레퍼런스 링크]
@@ -59,16 +63,16 @@ $coupang-detail-studio 이 상품의 쿠팡 상세페이지를 만들어 줘.
 - 이미지 생성 도구와 로컬 HTML 렌더링·이미지 변환 도구. 실제 도구 사용 가능 여부는 실행 환경에 따라 다릅니다.
 - 1688 로그인이 필요한 경우 계정 소유자의 로그인·보안 확인. 접근이 차단되면 사용자가 제공한 사진·스크린샷을 사용합니다.
 
-상세 절차와 품질 기준은 [상세페이지 스킬 파일](skills/coupang-detail-studio/SKILL.md)에 있습니다. 쿠팡 판매자센터 등록은 별도의 확인 단계입니다.
+상세 절차와 품질 기준은 [상세페이지 스킬 파일](skills/hama-studio/SKILL.md)에 있습니다. 쿠팡 판매자센터 등록은 별도의 확인 단계입니다.
 
 ## 권리 사전점검 스킬
 
-쿠팡 상품의 사입 전에 한국의 디자인권, 특허·실용신안권, 상표권을 조사하는 스킬입니다. 스킬 이름은 `coupang-ip-check`입니다.
+쿠팡 상품의 사입 전에 한국의 디자인권, 특허·실용신안권, 상표권을 조사하는 스킬입니다. 스킬 이름은 `hama-ip`입니다.
 
 상품 사진·링크·설명·상표명을 단서로 후보를 찾고, 쿠팡에 표시된 판매자명과 공개 상호·대표자명도 KIPRIS의 출원인·권리자 정보와 대조합니다. 확인한 검색 범위, 공식 원문, 남은 불확실성을 함께 보고합니다.
 
 ```text
-$coupang-ip-check 이 상품을 사입하기 전에 한국의 디자인권·특허·실용신안권·상표권 위험을 예비 조사해 줘.
+$hama-ip 이 상품을 사입하기 전에 한국의 디자인권·특허·실용신안권·상표권 위험을 예비 조사해 줘.
 상품 URL: [상품 링크]
 상품 사진: [사진 첨부]
 내가 사용할 브랜드·상표명: [이름]
@@ -81,7 +85,7 @@ $coupang-ip-check 이 상품을 사입하기 전에 한국의 디자인권·특�
 아래 한 줄을 **로컬 파일과 터미널을 사용할 수 있는 Codex 데스크톱/CLI**에 붙여 넣으면 처음 설치와 이후 업데이트에 모두 사용할 수 있습니다.
 
 ```text
-https://github.com/makingmoneyhippo/hama 의 README 절차에 따라 coupang-ip-check 스킬을 내 PC에 처음이면 설치하고 이미 있으면 로컬 수정과 API 키를 보존하며 최신판으로 업데이트해 줘. 내 운영체제에 맞게 korean-patent-mcp 설치·연결까지 진행하고, KIPRIS Plus 가입·API 신청·키 입력처럼 내가 직접 해야 할 단계만 안내해 줘. 키는 채팅에 받지 말고 내 PC에서만 입력하게 해 줘.
+https://github.com/makingmoneyhippo/hama 의 README 절차에 따라 hama-ip 스킬을 내 PC에 처음이면 설치하고 이미 있으면 로컬 수정과 API 키를 보존하며 최신판으로 업데이트해 줘. 내 운영체제에 맞게 korean-patent-mcp 설치·연결까지 진행하고, KIPRIS Plus 가입·API 신청·키 입력처럼 내가 직접 해야 할 단계만 안내해 줘. 키는 채팅에 받지 말고 내 PC에서만 입력하게 해 줘.
 ```
 
 이 프롬프트는 Codex가 설치 상태를 확인하도록 요청합니다. KIPRIS Plus 계정 개설·API 활용신청·키 입력은 사용자가 직접 해야 하므로 무인 설치를 뜻하지 않습니다. 일반 ChatGPT 웹·모바일 대화에는 로컬 스킬을 자동 설치할 수 있는 환경이 없을 수 있습니다.
@@ -94,7 +98,7 @@ macOS·Linux:
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-git clone https://github.com/makingmoneyhippo/hama.git "${CODEX_HOME:-$HOME/.codex}/skills/coupang-ip-check"
+git clone https://github.com/makingmoneyhippo/hama.git "${CODEX_HOME:-$HOME/.codex}/skills/hama-ip"
 ```
 
 Windows PowerShell:
@@ -103,14 +107,14 @@ Windows PowerShell:
 $codexHome = if ($env:CODEX_HOME) { $env:CODEX_HOME } else { Join-Path $HOME '.codex' }
 $skillsDir = Join-Path $codexHome 'skills'
 New-Item -ItemType Directory -Force $skillsDir | Out-Null
-git clone https://github.com/makingmoneyhippo/hama.git (Join-Path $skillsDir 'coupang-ip-check')
+git clone https://github.com/makingmoneyhippo/hama.git (Join-Path $skillsDir 'hama-ip')
 ```
 
 업데이트할 때는 설치 폴더가 이 저장소의 Git 복제본이고 작업 파일에 수정이 없는지 확인한 뒤 `git pull --ff-only origin main`을 실행합니다. 다른 방식으로 설치했거나 파일을 수정했다면 백업·차이 확인 없이 덮어쓰지 않습니다. API 키는 스킬 폴더 밖의 사용자 전용 위치에 저장됩니다.
 
 검색에는 [korean-patent-mcp](https://github.com/chrisryugj/korean-patent-mcp)와 개인 KIPRIS Plus API 키가 필요합니다. [MCP와 키 설정](references/mcp-setup.md)에 설치·연결 순서가 있습니다. 키는 이 저장소에 넣지 않습니다.
 
-Codex에서 `$coupang-ip-check`를 호출하고 상품 링크나 사진, 실제 사용할 상표명을 제공하세요. 예: `$coupang-ip-check로 이 쿠팡 상품을 사입하기 전에 디자인·특허·상표 위험을 조사해 줘.`
+Codex에서 `$hama-ip`를 호출하고 상품 링크나 사진, 실제 사용할 상표명을 제공하세요. 예: `$hama-ip 이 쿠팡 상품을 사입하기 전에 디자인·특허·상표 위험을 조사해 줘.`
 
 ## 검색 범위와 한계
 

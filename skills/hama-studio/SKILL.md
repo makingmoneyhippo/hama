@@ -1,9 +1,9 @@
 ---
-name: coupang-detail-studio
+name: hama-studio
 description: Inspect a supplied 1688 product link or images, confirm essential sale facts, then plan, produce, and revise a 20-panel Coupang detail page with animated WebPs and one combined final product-information and size panel.
 ---
 
-# Coupang detail studio
+# 하마스튜디오
 
 Create a complete product detail page as one scrollable, rendered HTML preview, not just a concept, prompts, or disconnected image panels. **Plan 20 exported detail-page panels by default.** Keep ordered exports and motion files for later platform use. The user may provide only a 1688 URL, a few product images, a long reference URL, or any combination. A URL alone is sufficient to start source inspection: do not make the user download product photos as the default intake step. Treat the product and reference as different sources: the product supplies identity and facts; the reference supplies transferable storytelling, pacing, and visual methods.
 
